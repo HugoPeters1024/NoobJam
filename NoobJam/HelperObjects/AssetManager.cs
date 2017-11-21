@@ -18,6 +18,11 @@ namespace NoobJam {
             return Manager.Load<Texture2D>("Sprites/" + path);
         }
 
+        public static SpriteFont LoadFont(string path)
+        {
+            return Manager.Load<SpriteFont>("Fonts/" + path);
+        }
+
         
     }
 }

@@ -18,13 +18,13 @@ namespace NoobJam
         }
 
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             foreach (GameObject obj in objects)
                 obj.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch batch)
+        public virtual void Draw(SpriteBatch batch)
         {
             foreach (GameObject obj in objects)
                 obj.Draw(batch, camera);

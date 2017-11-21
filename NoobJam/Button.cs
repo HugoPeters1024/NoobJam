@@ -11,22 +11,32 @@ namespace NoobJam
     class Button : SpriteObject
     {
         string text;
+        SpriteFont font;
 
-        public Button(Vector2 startPosition, string text = "") : base(startPosition)
+        private Button(Vector2 startPos) : base(startPos)
+        {
+            sprite = AssetManager.LoadSprite("button");
+            font = AssetManager.LoadFont("ButtonFont");
+        }
+
+        public Button(Vector2 startPosition, string text = "") : this(startPosition)
         {
             this.text = text;
-            this.sprite = AssetManager.LoadSprite("button");
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            Console.WriteLine(Clicked);
+            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch batch, Camera cam)
         {
             base.Draw(batch, cam);
-            batch.DrawString(Fonts.ButtonFont, text, position + sprite.Bounds.Center.ToVector2(), Color.White);
+            batch.DrawString(font, text, position + sprite.Bounds.Center.ToVector2(), Color.White);
         }
 
-        public Button(Vector2 startPos) : base(startPos) { }
-
-        public bool Pressed {  get { return Input.MouseLeftPressed && Hover; } }
-        public bool Hover { get { return sprite.Bounds.Contains(Input.MousePos); } }
+        public bool Clicked {  get { return Input.MouseLeftPressed && Hover; } }
+        public bool Hover { get { return sprite.Bounds.Contains(Input.MousePos - position.toPoint()); } }
     }
 }
