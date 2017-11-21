@@ -15,8 +15,8 @@ namespace NoobJam {
         }
 
 
-        public Texture2D LoadTexture(string path) {
-            return Manager.Load<Texture2D>(path);
+        public Texture2D LoadSprite(string path) {
+            return Manager.Load<Texture2D>("Sprites/" + path);
         }
 
         

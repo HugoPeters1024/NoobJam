@@ -12,6 +12,11 @@ namespace NoobJam
         public List<GameObject> objects;
         public Camera camera;
 
+        public Level() {
+            objects = new List<GameObject>();
+        }
+
+
         public void Update()
         {
             foreach (GameObject obj in objects)

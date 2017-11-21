@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace NoobJam.HelperObjects
+namespace NoobJam
 {
     public static class Operators
     {
