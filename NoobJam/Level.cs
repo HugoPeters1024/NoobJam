@@ -23,5 +23,10 @@ namespace NoobJam
             foreach (GameObject obj in objects)
                 obj.Draw(batch, camera);
         }
+
+        public void Add(GameObject obj)
+        {
+            objects.Add(obj);
+        }
     }
 }

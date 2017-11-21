@@ -10,6 +10,7 @@ namespace NoobJam
     class GameObject : IGameObject
     {
         public bool isUI;
+        public int x, y;
 
         public virtual void Draw(SpriteBatch batch, Camera cam)
         {
