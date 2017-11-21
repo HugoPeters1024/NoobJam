@@ -15,6 +15,7 @@ namespace NoobJam
         public Button(Vector2 startPosition, string text = "") : base(startPosition)
         {
             this.text = text;
+            this.sprite = AssetManager.LoadTexture("button");
         }
 
         public override void Draw(SpriteBatch batch, Camera cam)

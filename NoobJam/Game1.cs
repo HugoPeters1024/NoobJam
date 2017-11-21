@@ -29,7 +29,6 @@ namespace NoobJam
         {
             // TODO: Add your initialization logic here
             Input.Init();
-
             base.Initialize();
         }
 
@@ -38,6 +37,7 @@ namespace NoobJam
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Fonts.Init(Content);
+            AssetManager.Init(Content);
 
             // TODO: use this.Content to load your game content here
         }
