@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace NoobJam
 {
@@ -10,7 +11,7 @@ namespace NoobJam
     {
         public LevelMenu()
         {
-            Add(new Button());
+            Add(new Button(Vector2.Zero));
         }
     }
 }

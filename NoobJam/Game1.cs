@@ -68,8 +68,9 @@ namespace NoobJam
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
             currentLevel.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
