@@ -54,7 +54,7 @@ namespace NoobJam
 
             Input.Update();
 
-            currentLevel.Update();
+            currentLevel.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -65,7 +65,7 @@ namespace NoobJam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();

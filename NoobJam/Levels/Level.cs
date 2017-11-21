@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace NoobJam
 {
@@ -17,10 +18,10 @@ namespace NoobJam
         }
 
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             foreach (GameObject obj in objects)
-                obj.Update();
+                obj.Update(gameTime);
         }
 
         public void Draw(SpriteBatch batch)
