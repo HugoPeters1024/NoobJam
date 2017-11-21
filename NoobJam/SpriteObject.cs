@@ -13,8 +13,10 @@ namespace NoobJam
     {
         public Texture2D sprite;
 
-        public SpriteObject(Vector2 startPosition) : base(startPosition) {
+        public SpriteObject(Vector2 startPosition) : base(startPosition) {}
 
+        public SpriteObject(Vector2 startPosition, Texture2D sprite) : base(startPosition) {
+            this.sprite = sprite;
         }
 
         public override void Draw(SpriteBatch batch, Camera cam)
