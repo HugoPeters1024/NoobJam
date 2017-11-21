@@ -13,6 +13,8 @@ namespace NoobJam
         public bool isUI;
         public Vector2 position;
 
+        public GameObject() { }
+
         public GameObject(Vector2 position) {
             this.position = position;
         }
