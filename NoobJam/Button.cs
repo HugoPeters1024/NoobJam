@@ -15,12 +15,13 @@ namespace NoobJam
         public Button(Vector2 startPosition, string text = "") : base(startPosition)
         {
             this.text = text;
+            this.sprite = AssetManager.LoadSprite("button");
         }
 
         public override void Draw(SpriteBatch batch, Camera cam)
         {
             base.Draw(batch, cam);
-            //batch.DrawString(Fonts.ButtonFont, text, position + sprite.Bounds.Center, Color.White);
+            batch.DrawString(Fonts.ButtonFont, text, position + sprite.Bounds.Center.ToVector2(), Color.White);
         }
 
         public Button(Vector2 startPos) : base(startPos) { }

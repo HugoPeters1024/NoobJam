@@ -12,7 +12,6 @@ namespace NoobJam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level currentLevel;
-        public static AssetManager AssetManager;
 
         public Game1()
         {
@@ -30,7 +29,6 @@ namespace NoobJam
         {
             // TODO: Add your initialization logic here
             Input.Init();
-
             base.Initialize();
         }
 
@@ -38,8 +36,8 @@ namespace NoobJam
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            AssetManager = new AssetManager(Content);
             Fonts.Init(Content);
+            AssetManager.Init(Content);
             currentLevel = new PlayableLevel();
             // TODO: use this.Content to load your game content here
         }

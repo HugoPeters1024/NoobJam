@@ -7,15 +7,14 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace NoobJam {
-    public class AssetManager {
-        public ContentManager Manager;
+    public static class AssetManager {
+        public static ContentManager Manager;
 
-        public AssetManager(ContentManager manager) {
+        public static void Init(ContentManager manager) {
             Manager = manager;
         }
-
-
-        public Texture2D LoadSprite(string path) {
+        
+        public static Texture2D LoadSprite(string path) {
             return Manager.Load<Texture2D>("Sprites/" + path);
         }
 
