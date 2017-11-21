@@ -13,9 +13,13 @@ namespace NoobJam
     {
         public Texture2D sprite;
 
+        public SpriteObject(Vector2 startPosition) : base(startPosition) {
+
+        }
+
         public override void Draw(SpriteBatch batch, Camera cam)
         {
-            batch.Draw(sprite, new Vector2(x, y), Color.White);
+            batch.Draw(sprite, position, Color.White);
         }
     }
 }
