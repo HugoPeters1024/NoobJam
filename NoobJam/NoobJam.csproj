@@ -43,7 +43,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="HelperObjects\AssetManager.cs" />
-    <Compile Include="HelperObjects\Fonts.cs" />
     <Compile Include="HelperObjects\Operators.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="HelperObjects\Input.cs" />

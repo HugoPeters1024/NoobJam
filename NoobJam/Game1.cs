@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Runtime.InteropServices;
 
 namespace NoobJam
 {
@@ -9,12 +10,19 @@ namespace NoobJam
     /// </summary>
     public class Game1 : Game
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Level currentLevel;
 
+
         public Game1()
         {
+            AllocConsole();
+            IsMouseVisible = true;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -36,9 +44,8 @@ namespace NoobJam
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Fonts.Init(Content);
             AssetManager.Init(Content);
-            currentLevel = new PlayableLevel();
+            currentLevel = new LevelMenu();
             // TODO: use this.Content to load your game content here
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace NoobJam
 {
@@ -11,7 +12,12 @@ namespace NoobJam
     {
         public LevelMenu()
         {
-            Add(new Button(Vector2.Zero));
+            Add(new Button(new Vector2(100), "Start"));
+        }
+
+        public override void Update()
+        {
+            base.Update();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace NoobJam
 {
     class SpriteObject : GameObject
     {
-        public Texture2D sprite;
+        protected Texture2D sprite;
 
         public SpriteObject(Vector2 startPosition) : base(startPosition) {}
 
