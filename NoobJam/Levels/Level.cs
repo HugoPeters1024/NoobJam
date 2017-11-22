@@ -13,11 +13,13 @@ namespace NoobJam
         public List<GameObject> objects;
         protected LevelManager Manager;
         public Camera camera;
+        public Point Size;
 
         public Level(LevelManager manager) {
             objects = new List<GameObject>();
-            Camera camera = new Camera();
+            Camera camera = new Camera(this);
             Manager = manager;
+            Size = new Point(Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height);
         }
 
 

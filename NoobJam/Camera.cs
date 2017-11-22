@@ -14,12 +14,14 @@ namespace NoobJam
         public Matrix _transform; // Matrix Transform
         protected float _rotation; // Camera Rotation
         public GameObject follow;
+        Level level;
 
-        public Camera()
+        public Camera(Level level)
         {
             _zoom = 1.0f;
             _rotation = 0.0f;
             position = Vector2.Zero;
+            this.level = level;
         }
 
         // Sets and gets zoom
@@ -53,18 +55,15 @@ namespace NoobJam
 
         public override void Update(GameTime gameTime)
         {
+            //Rotation += 0.001f;
             if (follow == null)
                 return;
 
-            position = -new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height) / 2;
+            position = -new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height) / (2 * Zoom);
             if (position.X + follow.position.X < 0)
                 position.X = -follow.position.X;
             if (position.Y + follow.position.Y < 0)
                 position.Y = -follow.position.Y;
-            Console.WriteLine(position);
-            //if (base.position.X < 0) base.position.X = 0;
-            //if (base.position.Y < 0) base.position.Y = 0;
-
             Input.SetMouseOffset(-position - follow.position);
         }
 
@@ -72,11 +71,14 @@ namespace NoobJam
         {
             _transform =       // Thanks to o KB o for this solution
               Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
-              Matrix.CreateRotationZ(Rotation) *
               Matrix.CreateScale(new Vector3(Zoom, Zoom, 1));
 
             if (follow != null)
-                  _transform *= Matrix.CreateTranslation(new Vector3(-follow.position, 0));
+                  _transform *= Matrix.CreateTranslation(new Vector3(-follow.position * Zoom, 0));
+
+            _transform *= Matrix.CreateRotationZ(Rotation);
+
+
             return _transform;
         }
 

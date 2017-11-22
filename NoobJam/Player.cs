@@ -64,10 +64,10 @@ namespace NoobJam {
             }
 
             if (Input.KeyDown(Keys.X))
-                Safe();
+                map.Save();
 
             if (Input.KeyDown(Keys.Z))
-                Load();
+                map.Load();
         }
 
         bool MapCollision(Vector2 v)
@@ -76,30 +76,6 @@ namespace NoobJam {
             Point p = (v + new Vector2(2f)).toPoint() / new Point(map.gridSize);
             Point pt = (v + new Vector2(30f)).toPoint() / new Point(map.gridSize);
             return map.Get(p.X, p.Y) || map.Get(pt.X, p.Y) || map.Get(pt.X, pt.Y) || map.Get(p.X, pt.Y);
-        }
-
-        void Safe()
-        {
-            StreamWriter file = new StreamWriter("level.txt");
-            for (int y = 0; y < map.Height; ++y)
-            {
-                for (int x = 0; x < map.Width; ++x)
-                    file.Write(map.Get(x, y) ? '1' : '0');
-                file.WriteLine();
-            }
-            file.Close();
-        }
-
-        void Load()
-        {
-            StreamReader file = new StreamReader("level.txt");
-            for (int y = 0; y < map.Height; ++y)
-            {
-                for (int x = 0; x < map.Width; ++x)
-                    if (file.Read() - 48 == 0) { map.Unlock(x, y); } else { map.Lock(x, y); };
-                file.ReadLine();
-            }
-            file.Close();
         }
     }
 }

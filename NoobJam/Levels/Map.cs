@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -13,12 +14,15 @@ namespace NoobJam
         bool[,] map;
         Texture2D gridSprite;
         Texture2D wall, wallcorner;
+        Texture2D back;
+        public bool drawGrid;
 
         public Map(int width, int height)
         {
             gridSprite = AssetManager.LoadSprite("grid");
             wall = AssetManager.LoadSprite("wall");
             wallcorner = AssetManager.LoadSprite("wallcorner");
+            back = AssetManager.LoadSprite("floor");
             map = new bool[width, height];
             for (int y = 0; y < map.GetLength(1); ++y)
                 for (int x = 0; x < map.GetLength(0); ++x)
@@ -27,9 +31,13 @@ namespace NoobJam
 
         public override void Draw(SpriteBatch batch)
         {
-            for (int y = 0; y < map.GetLength(1); ++y)
+            for (int y = 0; y < Height; y+=2)
+                for (int x = 0; x < Width; x+=2)
+                    batch.Draw(back, new Vector2(x, y)/2f * back.Bounds.Size.toVector(), Color.White);
+
+            for (int y = 0; y < Height; ++y)
             {
-                for (int x = 0; x < map.GetLength(0); ++x)
+                for (int x = 0; x < Width; ++x)
                 {
                     if (map[x,y])
                         batch.Draw(gridSprite, new Vector2(gridSize) * new Vector2(x, y), Color.Gray);
@@ -62,11 +70,15 @@ namespace NoobJam
                 }
             }
 
-            for (int y = 0; y < map.GetLength(1) + 1; ++y)
-                Operators.DrawLine(batch, new Vector2(0, gridSize * y), new Vector2(gridSize * map.GetLength(0), gridSize * y), Color.LightBlue * 0.25f);
 
-            for (int x = 0; x < map.GetLength(0) + 1; ++x)
-                Operators.DrawLine(batch, new Vector2(gridSize * x, 0), new Vector2(gridSize * x, map.GetLength(1) * gridSize), Color.LightBlue * 0.25f);
+            if (drawGrid)
+            {
+                for (int y = 0; y < map.GetLength(1) + 1; ++y)
+                    Operators.DrawLine(batch, new Vector2(0, gridSize * y), new Vector2(gridSize * map.GetLength(0), gridSize * y), Color.LightBlue * 0.25f);
+
+                for (int x = 0; x < map.GetLength(0) + 1; ++x)
+                    Operators.DrawLine(batch, new Vector2(gridSize * x, 0), new Vector2(gridSize * x, map.GetLength(1) * gridSize), Color.LightBlue * 0.25f);
+            }
         }
 
         public bool Get(int x, int y)
@@ -90,8 +102,32 @@ namespace NoobJam
             map[x, y] = false;
         }
 
+        public void Load()
+        {
+            StreamReader file = new StreamReader("level.txt");
+            for (int y = 0; y < Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                    if (file.Read() - 48 == 0) { Unlock(x, y); } else { Lock(x, y); };
+                file.ReadLine();
+            }
+            file.Close();
+        }
+
+        public void Save()
+        {
+            StreamWriter file = new StreamWriter("level.txt");
+            for(int y=0; y<Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                    file.Write(Get(x, y) ? '1' : '0');
+                file.WriteLine();
+            }
+            file.Close();
+        }
+
         public int gridSize { get { return 32; } }
-        public int Width { get { return map.GetLength(1); } }
-        public int Height { get { return map.GetLength(0); } }
+        public int Width { get { return map.GetLength(0); } }
+        public int Height { get { return map.GetLength(1); } }
     }
 }

@@ -11,13 +11,11 @@ namespace NoobJam
     class LevelEditor : Level
     {
         Map map;
-        Texture2D back;
 
         public LevelEditor(LevelManager m) : base(m)
         {
-            Add(map = new Map(50, 32));
-            back = AssetManager.LoadSprite("floor");
-            camera = new Camera();
+            Add(map = new Map(50, 32) { drawGrid = true });
+            camera = new Camera(this);
             Add(new Player(new Vector2(32), map));
         }
 
@@ -39,9 +37,6 @@ namespace NoobJam
 
         public override void Draw(SpriteBatch batch)
         {
-            for (int y = 0; y < 20; ++y)
-                for (int x = 0; x < 20; ++x)
-                    batch.Draw(back, new Vector2(x, y) * back.Bounds.Size.toVector(), Color.White);
             base.Draw(batch);
         }
     }
