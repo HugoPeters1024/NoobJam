@@ -19,7 +19,7 @@ namespace NoobJam
             levels.Add("menu", new LevelMenu(this));
             levels.Add("play", new PlayableLevel(this));
             levels.Add("editor", new LevelEditor(this));
-            currentLevel = levels["editor"];
+            currentLevel = levels["play"];
         }
 
 
@@ -42,7 +42,15 @@ namespace NoobJam
 
         public void Draw(SpriteBatch batch)
         {
+            batch.Begin(SpriteSortMode.Deferred,
+                           BlendState.AlphaBlend,
+                           null,
+                           null,
+                           null,
+                           null,
+                           currentLevel.camera.get_transformation(Game1.graphics.GraphicsDevice /*Send the variable that has your graphic device here*/));
             currentLevel.Draw(batch);
+            batch.End();
         }
 
 

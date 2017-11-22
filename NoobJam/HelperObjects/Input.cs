@@ -12,6 +12,7 @@ namespace NoobJam
     {
         static KeyboardState keystate, prevkeystate;
         static MouseState mousestate, prevmousestate;
+        static Point mouseoffset;
 
         public static void Init()
         {
@@ -40,12 +41,14 @@ namespace NoobJam
             return keystate.IsKeyDown(key) && !prevkeystate.IsKeyDown(key);
         }
 
+        public static void SetMouseOffset(Point v) { mouseoffset = v; }
+        public static void SetMouseOffset(Vector2 v) { mouseoffset = v.ToPoint(); }
         
 
         public static bool MouseLeft { get { return mousestate.LeftButton == ButtonState.Pressed; } }
         public static bool MouseLeftPressed { get { return MouseLeft && prevmousestate.LeftButton != ButtonState.Pressed; } }
         public static bool MouseRight { get { return mousestate.RightButton == ButtonState.Pressed; } }
         public static bool MouseRightPressed { get { return MouseRight && prevmousestate.RightButton != ButtonState.Pressed; } }
-        public static Point MousePos { get { return mousestate.Position; } }
+        public static Point MousePos { get { return mousestate.Position - mouseoffset; } }
     }
 }

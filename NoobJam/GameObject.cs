@@ -19,7 +19,7 @@ namespace NoobJam
             this.position = position;
         }
 
-        public virtual void Draw(SpriteBatch batch, Camera cam)
+        public virtual void Draw(SpriteBatch batch)
         {
             
         }

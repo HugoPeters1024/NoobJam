@@ -14,7 +14,7 @@ namespace NoobJam
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
 
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         LevelManager levelManager;
 
@@ -80,9 +80,9 @@ namespace NoobJam
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             levelManager.Draw(spriteBatch);
-            spriteBatch.End();
+            //spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -19,7 +19,7 @@ namespace NoobJam
             this.sprite = sprite;
         }
 
-        public override void Draw(SpriteBatch batch, Camera cam)
+        public override void Draw(SpriteBatch batch)
         {
             batch.Draw(sprite, position, Color.White);
         }

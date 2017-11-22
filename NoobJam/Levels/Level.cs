@@ -11,17 +11,19 @@ namespace NoobJam
     class Level
     {
         public List<GameObject> objects;
-        public Camera camera;
         protected LevelManager Manager;
+        public Camera camera;
 
         public Level(LevelManager manager) {
             objects = new List<GameObject>();
+            Camera camera = new Camera();
             Manager = manager;
         }
 
 
         public virtual void Update(GameTime gameTime)
         {
+            camera.Update(gameTime);
             foreach (GameObject obj in objects)
                 obj.Update(gameTime);
         }
@@ -29,7 +31,7 @@ namespace NoobJam
         public virtual void Draw(SpriteBatch batch)
         {
             foreach (GameObject obj in objects)
-                obj.Draw(batch, camera);
+                obj.Draw(batch);
         }
 
         public void Add(GameObject obj)

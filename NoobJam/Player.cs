@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,8 @@ namespace NoobJam {
             moveSpeed = new Vector2(1.7f);
         }
 
-        public override void Draw(SpriteBatch batch, Camera cam) {
-            base.Draw(batch, cam);
+        public override void Draw(SpriteBatch batch) {
+            base.Draw(batch);
         }
 
         public override void Update(GameTime gameTime) {
@@ -35,15 +36,15 @@ namespace NoobJam {
                 speed = new Vector2(0);
 
             Vector2 newPos = position + speed;
+            /*
             Point from = (position.toPoint()) / new Point(map.gridSize);
-            Point to = (newPos.toPoint()) / new Point(map.gridSize);
+            Point to = (newPos.toPoint()) / new Point(map.gridSize); */
 
-            if (!MapCollision(new Point(to.X, from.Y)))
+            if (!MapCollision(new Vector2(newPos.X, position.Y)))
                 position.X = newPos.X;
-            else
-                speed.X = 0;
+            else { speed.X = 0; }
 
-            if (!MapCollision(new Point(from.X, to.Y)))
+            if (!MapCollision(new Vector2(position.X, newPos.Y)))
                 position.Y = newPos.Y;
             else
                 speed.Y = 0;
@@ -61,11 +62,44 @@ namespace NoobJam {
             if (Input.KeyDown(Keys.S)) {
                 speed += new Vector2(0, 1) * moveSpeed;
             }
+
+            if (Input.KeyDown(Keys.X))
+                Safe();
+
+            if (Input.KeyDown(Keys.Z))
+                Load();
         }
 
-        bool MapCollision(Point p)
+        bool MapCollision(Vector2 v)
         {
-            return map.Get(p.X, p.Y) || map.Get(p.X + 1, p.Y) || map.Get(p.X + 1, p.Y + 1) || map.Get(p.X, p.Y+1);
+            //slight offset
+            Point p = (v + new Vector2(2f)).toPoint() / new Point(map.gridSize);
+            Point pt = (v + new Vector2(30f)).toPoint() / new Point(map.gridSize);
+            return map.Get(p.X, p.Y) || map.Get(pt.X, p.Y) || map.Get(pt.X, pt.Y) || map.Get(p.X, pt.Y);
+        }
+
+        void Safe()
+        {
+            StreamWriter file = new StreamWriter("level.txt");
+            for (int y = 0; y < map.Height; ++y)
+            {
+                for (int x = 0; x < map.Width; ++x)
+                    file.Write(map.Get(x, y) ? '1' : '0');
+                file.WriteLine();
+            }
+            file.Close();
+        }
+
+        void Load()
+        {
+            StreamReader file = new StreamReader("level.txt");
+            for (int y = 0; y < map.Height; ++y)
+            {
+                for (int x = 0; x < map.Width; ++x)
+                    if (file.Read() - 48 == 0) { map.Unlock(x, y); } else { map.Lock(x, y); };
+                file.ReadLine();
+            }
+            file.Close();
         }
     }
 }

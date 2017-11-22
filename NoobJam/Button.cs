@@ -29,9 +29,9 @@ namespace NoobJam
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch batch, Camera cam)
+        public override void Draw(SpriteBatch batch)
         {
-            base.Draw(batch, cam);
+            base.Draw(batch);
             batch.DrawString(font, text, position + sprite.Bounds.Center.ToVector2(), Color.White);
         }
 

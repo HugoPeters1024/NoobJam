@@ -12,9 +12,9 @@ namespace NoobJam {
         Map map;
 
         public PlayableLevel(LevelManager m) : base(m) {
-            map = new Map(50, 27);
-            player = new Player(Vector2.Zero, map);
-            objects.Add(this.player);
+            Add(map = new Map(50, 27));
+            camera = new Camera();
+            Add(camera.follow = new Player(new Vector2(100), map));
         }
     }
 }

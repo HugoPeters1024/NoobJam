@@ -11,6 +11,6 @@ namespace NoobJam
     interface IGameObject
     {
         void Update(GameTime gameTime);
-        void Draw(SpriteBatch batch, Camera cam);
+        void Draw(SpriteBatch batch);
     }
 }

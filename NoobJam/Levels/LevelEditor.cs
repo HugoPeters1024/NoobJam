@@ -15,9 +15,10 @@ namespace NoobJam
 
         public LevelEditor(LevelManager m) : base(m)
         {
-            map = new Map(50, 32);
+            Add(map = new Map(50, 32));
             back = AssetManager.LoadSprite("floor");
-            Add(new Player(new Vector2(100, 100), map));
+            camera = new Camera();
+            Add(new Player(new Vector2(32), map));
         }
 
         public override void Update(GameTime gameTime)
@@ -42,7 +43,6 @@ namespace NoobJam
                 for (int x = 0; x < 20; ++x)
                     batch.Draw(back, new Vector2(x, y) * back.Bounds.Size.toVector(), Color.White);
             base.Draw(batch);
-            map.Draw(batch);
         }
     }
 }
