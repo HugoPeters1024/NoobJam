@@ -16,14 +16,17 @@ namespace NoobJam
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Level currentLevel;
+        LevelManager levelManager;
 
 
         public Game1()
         {
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 50 * 32;
+            graphics.PreferredBackBufferHeight = 32 * 32;
+            graphics.IsFullScreen = false;
             AllocConsole();
             IsMouseVisible = true;
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -37,6 +40,7 @@ namespace NoobJam
         {
             // TODO: Add your initialization logic here
             Input.Init();
+            Operators.Init(GraphicsDevice);
             base.Initialize();
         }
 
@@ -45,7 +49,8 @@ namespace NoobJam
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetManager.Init(Content);
-            currentLevel = new LevelMenu();
+
+            levelManager = new LevelManager();
             // TODO: use this.Content to load your game content here
         }
 
@@ -61,7 +66,7 @@ namespace NoobJam
 
             Input.Update();
 
-            currentLevel.Update(gameTime);
+            levelManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -76,7 +81,7 @@ namespace NoobJam
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            currentLevel.Draw(spriteBatch);
+            levelManager.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

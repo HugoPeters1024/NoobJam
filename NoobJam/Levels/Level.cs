@@ -12,9 +12,11 @@ namespace NoobJam
     {
         public List<GameObject> objects;
         public Camera camera;
+        protected LevelManager Manager;
 
-        public Level() {
+        public Level(LevelManager manager) {
             objects = new List<GameObject>();
+            Manager = manager;
         }
 
 

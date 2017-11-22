@@ -10,14 +10,20 @@ namespace NoobJam
 {
     class LevelMenu : Level
     {
-        public LevelMenu()
+        Button startButton;
+
+        public LevelMenu(LevelManager m) : base(m)
         {
-            Add(new Button(new Vector2(100), "Start"));
+            Add(startButton = new Button(new Vector2(100), "Start"));
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (startButton.Clicked)
+                Manager.ChangeLevel("play");
+                
             base.Update(gameTime);
+
         }
     }
 }

@@ -47,7 +47,10 @@
     <Compile Include="IGameObject.cs" />
     <Compile Include="HelperObjects\Input.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelEditor.cs" />
+    <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Levels\LevelMenu.cs" />
+    <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\PlayableLevel.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

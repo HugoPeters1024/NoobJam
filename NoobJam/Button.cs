@@ -26,7 +26,6 @@ namespace NoobJam
 
         public override void Update(GameTime gameTime)
         {
-            Console.WriteLine(Clicked);
             base.Update(gameTime);
         }
 
