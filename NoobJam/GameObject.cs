@@ -12,6 +12,7 @@ namespace NoobJam
     {
         public bool isUI;
         public Vector2 position;
+        public bool Kill;
 
         public GameObject() { }
 

@@ -11,7 +11,7 @@ namespace NoobJam
     class Level
     {
         public List<GameObject> objects;
-        protected LevelManager Manager;
+        public LevelManager Manager;
         public Camera camera;
         public Point Size;
 
@@ -27,13 +27,21 @@ namespace NoobJam
         {
             camera.Update(gameTime);
             foreach (GameObject obj in objects)
-                obj.Update(gameTime);
+            {
+                if (!obj.Kill)
+                    obj.Update(gameTime);
+            }
         }
 
         public virtual void Draw(SpriteBatch batch)
         {
             foreach (GameObject obj in objects)
-                obj.Draw(batch);
+                if (!obj.Kill)
+                    obj.Draw(batch);
+        }
+
+        public virtual void DrawUI(SpriteBatch batch)
+        {
         }
 
         public void Add(GameObject obj)

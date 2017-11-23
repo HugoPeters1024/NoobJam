@@ -12,11 +12,13 @@ namespace NoobJam
     {
         string text;
         SpriteFont font;
+        Texture2D sprite_down;
 
         private Button(Vector2 startPos) : base(startPos)
         {
-            sprite = AssetManager.LoadSprite("button");
-            font = AssetManager.LoadFont("ButtonFont");
+            sprite = AssetManager.LoadSprite("button off");
+            sprite_down = AssetManager.LoadSprite("button on");
+            font = AssetManager.LoadFont("ButtonFont2");
         }
 
         public Button(Vector2 startPosition, string text = "") : this(startPosition)
@@ -31,8 +33,8 @@ namespace NoobJam
 
         public override void Draw(SpriteBatch batch)
         {
-            base.Draw(batch);
-            batch.DrawString(font, text, position + sprite.Bounds.Center.ToVector2(), Color.White);
+            batch.Draw(Hover ? sprite_down : sprite, position + new Vector2(-40, 20), null, null, Vector2.Zero, 0.0f, new Vector2(1), Color.White, SpriteEffects.None, 0);
+            batch.DrawString(font, text, position + new Vector2(10, 10), Color.White);
         }
 
         public bool Clicked {  get { return Input.MouseLeftPressed && Hover; } }

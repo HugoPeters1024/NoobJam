@@ -12,6 +12,7 @@ namespace NoobJam
     {
         Dictionary<string, Level> levels;
         Level currentLevel;
+        public int scoreholder;
 
         public LevelManager()
         {
@@ -19,7 +20,8 @@ namespace NoobJam
             levels.Add("menu", new LevelMenu(this));
             levels.Add("play", new PlayableLevel(this));
             levels.Add("editor", new LevelEditor(this));
-            currentLevel = levels["play"];
+            levels.Add("exit", new LevelExit(this));
+            currentLevel = levels["menu"];
         }
 
 
@@ -33,6 +35,12 @@ namespace NoobJam
             {
                 throw new Exception("Unvalid level identifier, check the LevelManager dictionary");
             }
+        }
+
+        public void ResetLevel(string level)
+        {
+            if (level == "play")
+                levels["play"] = new PlayableLevel(this);
         }
 
         public void Update(GameTime gameTime)
@@ -50,6 +58,9 @@ namespace NoobJam
                            null,
                            currentLevel.camera.get_transformation(Game1.graphics.GraphicsDevice /*Send the variable that has your graphic device here*/));
             currentLevel.Draw(batch);
+            batch.End();
+            batch.Begin(SpriteSortMode.Deferred);
+            currentLevel.DrawUI(batch);
             batch.End();
         }
 

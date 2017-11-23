@@ -16,6 +16,7 @@ namespace NoobJam
         Texture2D wall, wallcorner;
         Texture2D back;
         public bool drawGrid;
+        public List<ItemHolder> holders;
 
         public Map(int width, int height)
         {
@@ -23,6 +24,7 @@ namespace NoobJam
             wall = AssetManager.LoadSprite("wall");
             wallcorner = AssetManager.LoadSprite("wallcorner");
             back = AssetManager.LoadSprite("floor");
+            holders = new List<ItemHolder>();
             map = new bool[width, height];
             for (int y = 0; y < map.GetLength(1); ++y)
                 for (int x = 0; x < map.GetLength(0); ++x)
@@ -102,14 +104,29 @@ namespace NoobJam
             map[x, y] = false;
         }
 
-        public void Load()
+        public void Load(Level level, Player player)
         {
+            //holders.Clear();
+            foreach (GameObject l in level.objects)
+            {
+                if (l is Laser)
+                    l.Kill = true;
+            }
             StreamReader file = new StreamReader("level.txt");
             for (int y = 0; y < Height; ++y)
             {
                 for (int x = 0; x < Width; ++x)
                     if (file.Read() - 48 == 0) { Unlock(x, y); } else { Lock(x, y); };
                 file.ReadLine();
+            }
+            while(!file.EndOfStream)
+            {
+                string[] line = file.ReadLine().Split(' ');
+                Vector2 pos = new Vector2(float.Parse(line[1]), float.Parse(line[2]));
+                switch(line[0])
+                {
+                    case "laser": level.Add(new Laser(player) { position = pos }); break;
+                }
             }
             file.Close();
         }
@@ -123,6 +140,8 @@ namespace NoobJam
                     file.Write(Get(x, y) ? '1' : '0');
                 file.WriteLine();
             }
+            foreach (ItemHolder h in holders)
+                file.WriteLine("{0} {1} {2}", h.id, h.position.X, h.position.Y);
             file.Close();
         }
 

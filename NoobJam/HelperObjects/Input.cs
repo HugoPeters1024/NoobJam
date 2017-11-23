@@ -49,6 +49,8 @@ namespace NoobJam
         public static bool MouseLeftPressed { get { return MouseLeft && prevmousestate.LeftButton != ButtonState.Pressed; } }
         public static bool MouseRight { get { return mousestate.RightButton == ButtonState.Pressed; } }
         public static bool MouseRightPressed { get { return MouseRight && prevmousestate.RightButton != ButtonState.Pressed; } }
+        public static bool MouseMiddle { get { return mousestate.MiddleButton == ButtonState.Pressed; } }
+        public static bool MouseMiddlePressed { get { return MouseMiddle && prevmousestate.MiddleButton != ButtonState.Pressed; } }
         public static Point MousePos { get { return mousestate.Position - mouseoffset; } }
     }
 }

@@ -14,23 +14,32 @@ namespace NoobJam {
         Map map;
         Vector2 speed, moveSpeed;
         Vector2 friction;
+        public int health = 100;
+        public int score = 0;
+        public int godtimer;
 
         public Player(Vector2 startPosition, Map map) : base(startPosition) {
             this.sprite = AssetManager.LoadSprite("player");
             this.map = map;
             speed = new Vector2(0);
             moveSpeed = new Vector2(1.7f);
+            godtimer = 0;
         }
 
         public override void Draw(SpriteBatch batch) {
-            base.Draw(batch);
+            batch.Draw(sprite, position, Color.White * (godtimer % 20 > 10 ? 0.2f : 1f));
         }
 
         public override void Update(GameTime gameTime) {
             base.Update(gameTime);
 
+            if (godtimer > 0)
+            {
+                godtimer--;
+            }
+
             //decrease the speed
-            friction = new Vector2(1.1f) + new Vector2(speed.Length() / 10f);
+            friction = new Vector2(1.2f) + new Vector2(speed.Length() / 50f);
             speed /= friction;
             if (Vector2.Dot(speed, speed) < 0.1f)
                 speed = new Vector2(0);
@@ -62,13 +71,14 @@ namespace NoobJam {
             if (Input.KeyDown(Keys.S)) {
                 speed += new Vector2(0, 1) * moveSpeed;
             }
-
-            if (Input.KeyDown(Keys.X))
-                map.Save();
-
-            if (Input.KeyDown(Keys.Z))
-                map.Load();
         }
+
+        public void AddForce(Vector2 f)
+        {
+            speed += f;
+        }
+
+        public Rectangle BoundingBox { get { return new Rectangle((int)position.X, (int)position.Y, 32, 32); } }
 
         bool MapCollision(Vector2 v)
         {
@@ -77,5 +87,8 @@ namespace NoobJam {
             Point pt = (v + new Vector2(30f)).toPoint() / new Point(map.gridSize);
             return map.Get(p.X, p.Y) || map.Get(pt.X, p.Y) || map.Get(pt.X, pt.Y) || map.Get(p.X, pt.Y);
         }
+
+        public bool Alive { get { return health > 0; } }
+        public bool Invincable { get { return godtimer > 0; } }
     }
 }

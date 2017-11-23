@@ -56,10 +56,11 @@ namespace NoobJam
         public override void Update(GameTime gameTime)
         {
             //Rotation += 0.001f;
+            Input.SetMouseOffset(-position);
             if (follow == null)
                 return;
 
-            position = -new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height) / (2 * Zoom);
+            position = -new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width, Game1.graphics.GraphicsDevice.Viewport.Height - 128) / (2 * Zoom);
             if (position.X + follow.position.X < 0)
                 position.X = -follow.position.X;
             if (position.Y + follow.position.Y < 0)

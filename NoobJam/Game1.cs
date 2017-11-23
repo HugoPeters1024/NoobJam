@@ -15,19 +15,22 @@ namespace NoobJam
         static extern bool AllocConsole();
 
         public static GraphicsDeviceManager graphics;
+        public static Point ScreenSize { get { return new Point(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height); } }
         SpriteBatch spriteBatch;
         LevelManager levelManager;
+        public static Game me;
 
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 50 * 32;
-            graphics.PreferredBackBufferHeight = 32 * 32;
+            graphics.PreferredBackBufferHeight = (int)((9f/19f) * graphics.PreferredBackBufferWidth);
             graphics.IsFullScreen = false;
             AllocConsole();
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            me = this;
         }
 
         /// <summary>
